@@ -4,7 +4,6 @@ specifiers:
   '@antfu/eslint-config': ^0.37.0
   '@nuxt/content': ^2.5.2
   '@nuxtjs/tailwindcss': ^6.6.4
-  '@orama/orama': 1.0.0-beta.4
   '@vueuse/core': ^9.13.0
   '@vueuse/nuxt': ^9.13.0
   eslint: ^8.36.0
@@ -16,7 +15,6 @@ devDependencies:
   '@antfu/eslint-config': 0.37.0_j4766f7ecgqbon3u7zlxn5zszu
   '@nuxt/content': 2.5.2
   '@nuxtjs/tailwindcss': 6.6.4
-  '@orama/orama': 1.0.0-beta.4
   '@vueuse/core': 9.13.0
   '@vueuse/nuxt': 9.13.0_nuxt@3.3.1
   eslint: 8.36.0
@@ -1384,11 +1382,6 @@ packages:
       - supports-color
       - ts-node
       - webpack
-    dev: true
-
-  /@orama/orama/1.0.0-beta.4:
-    resolution: {integrity: sha512-CSLngIstH6RzMy0pLkLhQngs1rS5Gt6g2fYORehqL3uccB99W8svoc5wut5ARN+5LcIeVgX9ruzTCsiBXM2skw==}
-    engines: {node: '>= 16.0.0'}
     dev: true
 
   /@rollup/plugin-alias/4.0.3_rollup@3.20.1:
