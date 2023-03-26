@@ -1,9 +1,9 @@
 <script setup lang="ts">
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-const { data: time } = await useFetch<TimeResponse>('http://localhost:8080/get_time')
-const { data: trip } = await useFetch<TripResponse>('http://localhost:8080/get_trip')
-const { data: user } = await useFetch<UserResponse>('http://localhost:8080/get_user')
+const { data: time } = await useFetch<TimeResponse>('http://localhost:8080/get_time/')
+const { data: trip } = await useFetch<TripResponse>('http://localhost:8080/get_trip/')
+const { data: user } = await useFetch<UserResponse>('http://localhost:8080/get_user/')
 </script>
 
 <template>

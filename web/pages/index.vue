@@ -16,7 +16,7 @@ const queryData = ref<QueryBody>({
 })
 
 const handleComplete = async () => {
-	const { data, pending } = await useFetch('http://localhost:8080/load', {
+	const { data, pending } = await useFetch('http://localhost:8080/load/', {
 		method: 'POST',
 		body: {
 			...queryData.value,
@@ -60,13 +60,13 @@ const handleOption = async ({ name, value }: PromptAnswer) => {
 
 // Poll the API to check if it's online [TODO: replace with websocket]
 onMounted(() => {
-	const { data } = useFetch<StatusResponse>('http://localhost:8080/ok')
+	const { data } = useFetch<StatusResponse>('http://localhost:8080/ok/')
 
 	is_api_online.value = data.value?.status === 'OK'
 	if (is_api_online.value) return
 
 	const api_checker = setInterval(() => {
-		const { data } = useFetch<StatusResponse>('http://localhost:8080/ok')
+		const { data } = useFetch<StatusResponse>('http://localhost:8080/ok/')
 		is_api_online.value = data.value?.status === 'OK'
 		if (is_api_online.value) clearInterval(api_checker)
 	}, 500)
