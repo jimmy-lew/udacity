@@ -62,6 +62,7 @@ const { data: user } = await useFetch<UserResponse>('http://localhost:8080/get_u
 					overflow-x-scroll gap-10
 					px-16 pb-16"
 				>
+					<!-- TODO: Line wrapping since trips can be long -->
 					<Card
 						class="bg-violet-500"
 						title="Most popular route"

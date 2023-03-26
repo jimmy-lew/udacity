@@ -75,7 +75,7 @@ class Router:
 
         selected_city = CITY_MAP[city]
 
-        df = pd.read_csv(selected_city)
+        df = pd.read_csv(f'data/{selected_city}')
         df['Start Time'] = pd.to_datetime(df['Start Time'])
         df['hour'] = df['Start Time'].dt.hour
         df['day_of_week'] = df['Start Time'].dt.day_name()
