@@ -41,14 +41,17 @@ const stat_class = computed(() => {
 		<h3 class="font-semibold text-sm mt-2 mb-1">
 			{{ title }}
 		</h3>
-		<h1 class="font-bold" :class="stat_class">
+		<h1 v-if="value" class="font-bold" :class="stat_class">
 			{{ value }}
 		</h1>
-		<div v-if="note" class="mb-2 flex items-center justify-start text-zinc-400 text-xs" :class="`${isCompact ? 'mt-4' : 'mt-3'}`">
+		<div v-if="value && note" class="mb-2 flex items-center justify-start text-zinc-400 text-xs" :class="`${isCompact ? 'mt-4' : 'mt-3'}`">
 			<Icon v-if="note[2]" size="16" :name="note[2]" class="mr-1" />
 			<p class="text-center mt-0.5">
 				<span class="font-bold">{{ note[0] }}</span> {{ note[1] }}
 			</p>
+		</div>
+		<div v-if="!value" class="flex items-center justify-center h-full">
+			<Icon size="36" name="svg-spinners:270-ring" />
 		</div>
 	</div>
 </template>

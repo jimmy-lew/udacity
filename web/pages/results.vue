@@ -28,22 +28,22 @@ const { data: user } = await useFetch<UserResponse>('http://localhost:8080/get_u
 				>
 					<Card
 						class="bg-emerald-500"
-						title="Favourite hour"
+						title="Busiest hour"
 						icon="bx:hourglass"
-						:value="`${time?.hour.value}:00`"
+						:value="time ? `${time.hour.value}:00` : ''"
 						:note="[time?.hour.count || 0, 'users', 'material-symbols:person-3-rounded']"
 					/>
 					<Card
 						class="bg-amber-500"
-						title="Favourite day"
+						title="Busiest day"
 						icon="material-symbols:calendar-view-day-rounded"
 						:value="time?.day.value.toString().slice(0, 3) || ''"
 						:note="[time?.day.count || 0, 'users', 'material-symbols:person-3-rounded']"
 					/>
 					<Card
 						class="bg-rose-500"
-						:value="months[(time?.month.value || 1) - 1]"
-						title="Favourite month"
+						:value="time ? months[time.month.value - 1] : ''"
+						title="Busiest month"
 						icon="fluent:calendar-month-20-filled"
 						:note="[time?.month.count || 0, 'users', 'material-symbols:person-3-rounded']"
 					/>
@@ -62,7 +62,7 @@ const { data: user } = await useFetch<UserResponse>('http://localhost:8080/get_u
 				>
 					<Card
 						class="bg-violet-500"
-						title="Favourite route"
+						title="Most popular route"
 						icon="ic:twotone-route"
 						:value="trip?.full_trip || ''"
 						:note="[trip?.count || 0, 'users', 'material-symbols:person-3-rounded']"
@@ -71,27 +71,27 @@ const { data: user } = await useFetch<UserResponse>('http://localhost:8080/get_u
 					/>
 					<Card
 						class="bg-orange-500"
-						title="Favourite start station"
+						title="Most popular start station"
 						icon="material-symbols:line-start-circle-outline-rounded"
 						:value="trip?.station.start.value || ''"
 						:note="[trip?.station.start.count || 0, 'users', 'material-symbols:person-3-rounded']"
 						is-compact
-						:expand="(trip?.station.start.value.length || 0) > 12"
+						expand
 					/>
 					<Card
 						class="bg-sky-500"
-						title="Favourite end station"
+						title="Most popular end station"
 						icon="material-symbols:line-end-circle-outline-rounded"
 						:value="trip?.station.end.value || ''"
 						:note="[trip?.station.end.count || 0, 'users', 'material-symbols:person-3-rounded']"
 						is-compact
-						:expand="(trip?.station.start.value.length || 0) > 12"
+						expand
 					/>
 					<Card
 						class="bg-emerald-500"
 						title="Average duration"
 						icon="bx:hourglass"
-						:value="`${Math.round((trip?.duration.avg || 0) / 60)} min`"
+						:value="trip ? `${Math.round(trip.duration.avg / 60)} min` : ''"
 					/>
 					<Card
 						class="bg-red-600"
