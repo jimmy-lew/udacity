@@ -57,7 +57,7 @@ onMounted(() => {
 		const { data } = useFetch<StatusCheck>('http://localhost:8080/ok')
 		is_api_online.value = data.value?.status === 'OK'
 		if (is_api_online.value) clearInterval(api_checker)
-	}, 1500)
+	}, 500)
 })
 </script>
 

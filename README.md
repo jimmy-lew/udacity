@@ -8,13 +8,14 @@
   
   cd api
   pip3 install -r requirements_pip.txt
-  python3 -m uvicorn main:app --reload
+  python3 main.py
 
 
 ```
 
 ## Web
 
+Using npm
 
 ```bash
 
@@ -24,3 +25,15 @@
 
 
 ```
+
+Using pnpm (prefered)
+
+```bash
+
+  cd web
+  pnpm i
+  pnpm dev
+
+```
+
+Alternatively you can use the deployed version [here](https://udacity-one.vercel.app)
