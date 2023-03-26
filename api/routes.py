@@ -171,8 +171,8 @@ class Router:
         if not has_birth_data and not has_gender_data:
             return {
                 'type': {
-                    'subscriber': subscriber.item(),
-                    'customer': customer.item()
+                    'subscriber': subscriber,
+                    'customer': customer
                 },
             }
 
