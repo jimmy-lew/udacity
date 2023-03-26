@@ -68,3 +68,4 @@ class QueryBody(BaseModel):
 class StatusResponse(BaseModel):
     status: str
     code: int
+    message: Optional[str]

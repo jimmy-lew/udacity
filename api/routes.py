@@ -67,6 +67,8 @@ class Router:
 
         city, month, day = attrgetter('city', 'month', 'day')(query)
 
+        MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
         CITY_MAP = {
             'Chicago': 'chicago.csv',
             'New York City': 'new_york_city.csv',
@@ -89,6 +91,20 @@ class Router:
 
         df = df[df['month'] == month] if self.filtered_by_month else df
         df = df[df['day_of_week'] == day] if self.filtered_by_day else df
+
+        if self.filtered_by_month and len(df) == 0:
+            return {
+                'code': 400,
+                'status': 'Bad request',
+                'message': f'No data for {city} for {MONTHS[month - 1]}'
+            }
+
+        if self.filtered_by_day and len(df) == 0:
+            return {
+                'code': 400,
+                'status': 'Bad request',
+                'message': f'No data for {city} for {day}'
+            }
 
         self.df = df
 

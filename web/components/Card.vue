@@ -30,7 +30,8 @@ const stat_class = computed(() => {
 		class="
 		flex flex-col
 		rounded-2xl h-52 p-6
-		my-shadow bg-white"
+		my-shadow bg-white
+		hover:scale-105 transition-all duration-500 ease-in-out"
 		:class="`${expand ? 'min-w-max' : 'aspect-square'}`"
 	>
 		<div class="inline-flex items-center justify-start mb-2">

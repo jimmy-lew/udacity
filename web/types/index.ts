@@ -23,9 +23,10 @@ declare global {
     	day: string
     }
 
-    interface StatusCheck {
+    interface StatusResponse {
     	code: number
     	status: string
+    	message?: string
     }
 
     interface ValueCount<T extends string | number> {

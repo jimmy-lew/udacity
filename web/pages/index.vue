@@ -3,6 +3,7 @@ const { data } = await useAsyncData(() => queryContent('/prompts').findOne())
 
 const prompts = ref<Prompt[]>(data.value?.prompts)
 const loading = ref(true)
+const error = ref('')
 const is_api_online = ref(false)
 const ptr = ref(0)
 const tail = ref(3)
@@ -15,7 +16,7 @@ const queryData = ref<QueryBody>({
 })
 
 const handleComplete = async () => {
-	const { pending } = await useFetch('http://localhost:8080/load', {
+	const { data, pending } = await useFetch('http://localhost:8080/load', {
 		method: 'POST',
 		body: {
 			...queryData.value,
@@ -27,10 +28,21 @@ const handleComplete = async () => {
 	})
 
 	loading.value = pending.value
+	error.value = ''
 
-	setTimeout(() => {
-		navigateTo('/results')
-	}, 1500)
+	const res = data.value as StatusResponse
+
+	if (res.status === 'OK') {
+		setTimeout(() => {
+			navigateTo('/results')
+		}, 1000)
+	}
+	if (res.code === 400) {
+		error.value = res.message || 'Bad Request'
+		setTimeout(() => {
+			window?.location.reload()
+		}, 3000)
+	}
 }
 
 const handleOption = async ({ name, value }: PromptAnswer) => {
@@ -48,13 +60,13 @@ const handleOption = async ({ name, value }: PromptAnswer) => {
 
 // Poll the API to check if it's online [TODO: replace with websocket]
 onMounted(() => {
-	const { data } = useFetch<StatusCheck>('http://localhost:8080/ok')
+	const { data } = useFetch<StatusResponse>('http://localhost:8080/ok')
 
 	is_api_online.value = data.value?.status === 'OK'
 	if (is_api_online.value) return
 
 	const api_checker = setInterval(() => {
-		const { data } = useFetch<StatusCheck>('http://localhost:8080/ok')
+		const { data } = useFetch<StatusResponse>('http://localhost:8080/ok')
 		is_api_online.value = data.value?.status === 'OK'
 		if (is_api_online.value) clearInterval(api_checker)
 	}, 500)
@@ -90,8 +102,11 @@ onMounted(() => {
 						<div v-if="loading">
 							<Icon size="32" name="svg-spinners:3-dots-bounce" />
 						</div>
-						<div v-else>
+						<div v-if="!loading && !error">
 							<Icon size="32" name="material-symbols:check-circle" />
+						</div>
+						<div v-if="!loading && error">
+							<Icon size="32" name="material-symbols:add-circle-rounded" class="rotate-45" />
 						</div>
 					</div>
 				</Transition>
@@ -103,6 +118,13 @@ onMounted(() => {
 			<Icon class="pulse" size="32" name="material-symbols:portable-wifi-off-rounded" />
 		</div>
 	</div>
+	<Transition name="right">
+		<div v-if="error" class="absolute top-4 right-4">
+			<Toast class="pulse">
+				{{ error }}
+			</Toast>
+		</div>
+	</Transition>
 </template>
 
 <style>
@@ -113,6 +135,16 @@ onMounted(() => {
 
 .v-enter-from,
 .v-leave-to {
+  opacity: 0;
+}
+
+.right-enter-active,
+.right-leave-active {
+  transition: all 0.5s ease;
+}
+.right-enter-from,
+.right-leave-to {
+  transform: translateX(100%);
   opacity: 0;
 }
 

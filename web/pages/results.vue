@@ -166,6 +166,18 @@ const { data: user } = await useFetch<UserResponse>('http://localhost:8080/get_u
 				</div>
 			</div>
 		</div>
+		<NuxtLink
+			to="/"
+			class="
+			fixed top-4 right-4
+			w-10 h-10 p-2
+			rounded-md bg-white my-shadow
+			hover:scale-105 focus:scale-105 transition-all duration-500 ease-in-out"
+		>
+			<div class="flex items-center justify-center">
+				<Icon size="24" name="ic:round-replay" />
+			</div>
+		</NuxtLink>
 	</div>
 </template>
 
