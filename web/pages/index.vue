@@ -17,7 +17,10 @@ const queryData = ref<QueryBody>({
 const handleComplete = async () => {
 	const { pending } = await useFetch('http://localhost:8080/load', {
 		method: 'POST',
-		body: JSON.stringify(queryData.value),
+		body: {
+			...queryData.value,
+			month: prompts.value[2].options.indexOf(queryData.value.month) + 1,
+		},
 		headers: {
 			'Content-Type': 'application/json',
 		},
@@ -27,7 +30,7 @@ const handleComplete = async () => {
 
 	setTimeout(() => {
 		navigateTo('/results')
-	}, 500)
+	}, 1500)
 }
 
 const handleOption = async ({ name, value }: PromptAnswer) => {

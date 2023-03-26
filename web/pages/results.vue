@@ -34,18 +34,20 @@ const { data: user } = await useFetch<UserResponse>('http://localhost:8080/get_u
 						:note="[time?.hour.count || 0, 'users', 'material-symbols:person-3-rounded']"
 					/>
 					<Card
+						v-if="time?.day"
 						class="bg-amber-500"
 						title="Busiest day"
 						icon="material-symbols:calendar-view-day-rounded"
-						:value="time?.day.value.toString().slice(0, 3) || ''"
-						:note="[time?.day.count || 0, 'users', 'material-symbols:person-3-rounded']"
+						:value="time.day.value.toString().slice(0, 3)"
+						:note="[time.day.count, 'users', 'material-symbols:person-3-rounded']"
 					/>
 					<Card
+						v-if="time?.month"
 						class="bg-rose-500"
-						:value="time ? months[time.month.value - 1] : ''"
+						:value="months[time.month.value - 1]"
 						title="Busiest month"
 						icon="fluent:calendar-month-20-filled"
-						:note="[time?.month.count || 0, 'users', 'material-symbols:person-3-rounded']"
+						:note="[time.month.count, 'users', 'material-symbols:person-3-rounded']"
 					/>
 				</div>
 			</div>
