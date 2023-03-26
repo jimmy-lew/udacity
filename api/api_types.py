@@ -41,8 +41,8 @@ class UserBirthInfo(BaseModel):
 
 class TimeResponse(BaseModel):
     hour: ValueCountInt
-    day: ValueCountStr
-    month: ValueCountInt
+    day: Optional[ValueCountStr]
+    month: Optional[ValueCountInt]
 
 
 class TripResponse(BaseModel):
@@ -61,7 +61,7 @@ class UserResponse(BaseModel):
 class QueryBody(BaseModel):
     city: str
     filter: str
-    month: str
+    month: int
     day: str
 
 

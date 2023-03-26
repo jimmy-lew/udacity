@@ -14,6 +14,7 @@ class Router:
     Attributes:
         router (APIRouter): FastAPI router object
         df (Optional[pd.DataFrame]): Pandas dataframe containing the loaded data
+        date_unfiltered_df (Optional[pd.DataFrame]): Pandas dataframe without date filters
 
     TODO:
         * Make class into a singleton
@@ -22,11 +23,16 @@ class Router:
     """
 
     df: Optional[pd.DataFrame]
+    date_unfiltered_df: Optional[pd.DataFrame]
 
     def __init__(self):
 
         self.router = APIRouter()
         self.df = None
+        self.date_unfiltered_df = None
+
+        self.filtered_by_month = False
+        self.filtered_by_day = False
 
         self.router.add_api_route('/load', self.load_data, methods=['POST'])
 
@@ -76,6 +82,14 @@ class Router:
         df['month'] = df['Start Time'].dt.month
         df['trip'] = df['Start Station'] + ' - ' + df['End Station']
 
+        self.filtered_by_month = month != 0
+        self.filtered_by_day = day != ''
+
+        self.date_unfiltered_df = df.copy(True)
+
+        df = df[df['month'] == month] if self.filtered_by_month else df
+        df = df[df['day_of_week'] == day] if self.filtered_by_day else df
+
         self.df = df
 
         return {
@@ -90,23 +104,23 @@ class Router:
         Returns:
             TimeResponse: Response object containing most popular hour, day and month
         """
-        popular_month = self.df['month'].mode()[0]
-        popular_day = self.df['day_of_week'].mode()[0]
+        popular_month = self.df['month'].mode()[0] if not self.filtered_by_month else None
+        popular_day = self.df['day_of_week'].mode()[0] if not self.filtered_by_day else None
         popular_hour = self.df['hour'].mode()[0]
 
-        month_count = self.df['month'].value_counts()[popular_month]
-        day_count = self.df['day_of_week'].value_counts()[popular_day]
+        month_count = self.df['month'].value_counts()[popular_month] if not self.filtered_by_month else None
+        day_count = self.df['day_of_week'].value_counts()[popular_day] if not self.filtered_by_day else None
         hour_count = self.df['hour'].value_counts()[popular_hour]
 
         res = {
             'month': {
                 'value': popular_month.item(),
                 'count': month_count.item()
-            },
+            } if not self.filtered_by_month else None,
             'day': {
                 'value': popular_day,
                 'count': day_count.item()
-            },
+            } if not self.filtered_by_day else None,
             'hour': {
                 'value': popular_hour.item(),
                 'count': hour_count.item()
@@ -164,9 +178,9 @@ class Router:
             UserResponse: Response object containing minimally user types, and also gender and birth year if available
         """
 
-        subscriber, customer, *_ = self.df['User Type'].value_counts()
-        has_gender_data = 'Gender' in self.df
-        has_birth_data = 'Birth Year' in self.df
+        subscriber, customer, *_ = self.date_unfiltered_df['User Type'].value_counts()
+        has_gender_data = 'Gender' in self.date_unfiltered_df
+        has_birth_data = 'Birth Year' in self.date_unfiltered_df
 
         if not has_birth_data and not has_gender_data:
             return {
@@ -176,10 +190,10 @@ class Router:
                 },
             }
 
-        male, female = self.df['Gender'].value_counts()
-        earliest_year = self.df['Birth Year'].min()
-        recent_year = self.df['Birth Year'].max()
-        common_year = self.df['Birth Year'].mode()[0]
+        male, female = self.date_unfiltered_df['Gender'].value_counts()
+        earliest_year = self.date_unfiltered_df['Birth Year'].min()
+        recent_year = self.date_unfiltered_df['Birth Year'].max()
+        common_year = self.date_unfiltered_df['Birth Year'].mode()[0]
 
         res = {
             'type': {
