@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 # TODO: Find a way to make generics work
@@ -14,7 +15,6 @@ class ValueCountStr(BaseModel):
 
 class Duration(BaseModel):
     total: int
-    count: int
     avg: int
 
 
@@ -41,13 +41,12 @@ class UserBirthInfo(BaseModel):
 
 class TimeResponse(BaseModel):
     hour: ValueCountInt
-    day: ValueCountInt
-    month: ValueCountStr
+    day: ValueCountStr
+    month: ValueCountInt
 
 
 class TripResponse(BaseModel):
-    start: str
-    end: str
+    full_trip: str
     count: int
     duration: Duration
     station: Station
@@ -55,8 +54,8 @@ class TripResponse(BaseModel):
 
 class UserResponse(BaseModel):
     type: UserType
-    gender: UserGender
-    birth: UserBirthInfo
+    gender: Optional[UserGender]
+    birth: Optional[UserBirthInfo]
 
 
 class QueryResponse(BaseModel):

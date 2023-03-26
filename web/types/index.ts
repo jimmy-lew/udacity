@@ -5,6 +5,9 @@ export { }
 declare global {
     type Nullable<T> = T | null
 
+    type RoundTypes = SizeTypes
+    type SizeTypes = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
+
     interface Prompt {
     	prompt: string
     	name: string
@@ -39,22 +42,20 @@ declare global {
 
     interface TimeResponse {
     	hour: ValueCount<number>
-    	day: ValueCount<number>
-    	month: ValueCount<string>
+    	day: ValueCount<string>
+    	month: ValueCount<number>
     }
 
     interface TripResponse {
     	duration: {
     		total: number
-    		count: number
     		avg: number
     	}
     	station: {
     		start: ValueCount<string>
     		end: ValueCount<string>
     	}
-    	start: string
-    	end: string
+    	full_trip: string
     	count: number
     }
 
@@ -63,11 +64,11 @@ declare global {
     		subscriber: number
     		customer: number
     	}
-    	gender: {
+    	gender?: {
     		male: number
     		female: number
     	}
-    	birth: {
+    	birth?: {
     		earliest: number
     		latest: number
     		mode: number
