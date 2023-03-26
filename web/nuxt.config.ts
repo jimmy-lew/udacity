@@ -3,7 +3,6 @@ export default defineNuxtConfig({
 		'@nuxtjs/tailwindcss',
 		'@nuxt/content',
 		'nuxt-icon',
-		'@vueuse/nuxt',
 	],
 	content: {
 		documentDriven: {
