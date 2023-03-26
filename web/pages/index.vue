@@ -5,6 +5,7 @@ const prompts = ref<Prompt[]>(data.value?.prompts)
 const loading = ref(true)
 const is_api_online = ref(false)
 const ptr = ref(0)
+const tail = ref(3)
 
 const queryData = ref<QueryBody>({
 	city: '',
@@ -31,7 +32,15 @@ const handleComplete = async () => {
 
 const handleOption = async ({ name, value }: PromptAnswer) => {
 	queryData.value[name as keyof QueryBody] = value
-	if (ptr.value++ >= 3) handleComplete()
+
+	if (ptr.value === 1) {
+		const { filter } = queryData.value
+		if (filter === 'Month') tail.value = 2
+		if (filter === 'Day') ptr.value++
+		if (filter === 'None') tail.value = 0
+	}
+
+	if (ptr.value++ >= tail.value) return handleComplete()
 }
 
 // Poll the API to check if it's online [TODO: replace with websocket]
@@ -60,7 +69,7 @@ onMounted(() => {
 					Let's explore some US bikeshare data!
 				</h2>
 				<Transition>
-					<div v-if="ptr <= 3" class="pt-4 flex flex-col items-center text-center gap-2">
+					<div v-if="ptr <= tail" class="pt-4 flex flex-col items-center text-center gap-2">
 						<p class="">
 							{{ prompts[ptr].prompt }}
 						</p>
