@@ -1,11 +1,11 @@
 <script setup lang="ts">
 defineProps<{
-    name: string,
-    value: string,
+	name: string
+	value: string
 }>()
 
 const emits = defineEmits<{
-    (e: 'optionSelect', data: PromptAnswer): void
+	(e: 'optionSelect', data: PromptAnswer): void
 }>()
 
 const option = ref<HTMLButtonElement>() as Ref<HTMLButtonElement>
@@ -13,20 +13,20 @@ const option = ref<HTMLButtonElement>() as Ref<HTMLButtonElement>
 
 <template>
 	<button
-        ref="option"
-        class="
+		ref="option"
+		class="
         flex justify-center items-center
-        rounded-md bg-zinc-200 select-none cursor-pointer
+        rounded-md bg-zinc-50 select-none cursor-pointer
         py-2 px-4
-        hover:scale-105 hover:bg-zinc-300
+        hover:scale-105 hover:bg-zinc-100
         transition-all duration-200 ease-in-out
         font-semibold"
-        :name="name"
-        :value="value"
-        @click="emits('optionSelect', { name, value })"
-    >
-        {{ value }}
-    </button>
+		:name="name"
+		:value="value"
+		@click="emits('optionSelect', { name, value })"
+	>
+		{{ value }}
+	</button>
 </template>
 
 <style scoped>

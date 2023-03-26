@@ -1,43 +1,39 @@
 prompts:
-  - 
-    name: "city"
-    prompt: "Would you like to see data for"
+  - name: city
+    prompt: Would you like to see data for
     options:
-      - "Chicago"
-      - "New York City"
-      - "Washington"
-  -
-    name: "date"
-    prompt: "Would you like to filter the data by"
+      - Chicago
+      - New York City
+      - Washington
+  - name: filter
+    prompt: Would you like to filter the data by
     options:
-      - "Day"
-      - "Month"
-      - "Both"
-      - "None"
-  -
-    name: "month"
-    prompt: "Which month?"
+      - Day
+      - Month
+      - Both
+      - None
+  - name: month
+    prompt: Which month?
     options:
-      - "Jan"
-      - "Feb"
-      - "Mar"
-      - "Apr"
-      - "May"
-      - "Jun"
-      - "July"
-      - "Aug"
-      - "Sep"
-      - "Oct"
-      - "Nov"
-      - "Dec"
-  - 
-    name: "day"
-    prompt: "Which day?"
+      - Jan
+      - Feb
+      - Mar
+      - Apr
+      - May
+      - Jun
+      - July
+      - Aug
+      - Sep
+      - Oct
+      - Nov
+      - Dec
+  - name: day
+    prompt: Which day?
     options:
-     - "Mon"
-     - "Tue"
-     - "Wed"
-     - "Thu"
-     - "Fri"
-     - "Sat"
-     - "Sun"
+      - Mon
+      - Tue
+      - Wed
+      - Thu
+      - Fri
+      - Sat
+      - Sun
