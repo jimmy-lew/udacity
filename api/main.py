@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from bikeshare_2 import Router
-from model_types import QueryBody, TimeResponse
+from routes import Router
 import uvicorn
 
 app = FastAPI()
 router = Router()
+
+app.include_router(router.router)
 
 app.add_middleware(
     CORSMiddleware,
@@ -14,17 +15,7 @@ app.add_middleware(
     allow_headers=['*']
 )
 
-app.include_router(router.router)
-
-
-@app.get('/ok')
-def check_ok():
-    return {
-        'code': 200,
-        'status': 'OK'
-    }
-
 
 if __name__ == '__main__':
-    uvicorn.run('main:app', port=8000, reload=True)
+    uvicorn.run('main:app', port=8080, reload=True)
     pass
