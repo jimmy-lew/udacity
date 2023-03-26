@@ -3,6 +3,8 @@
 
 ## API 
 
+API for data parsing and analysis
+
 
 ```bash
   
@@ -15,6 +17,8 @@
 
 ## Web
 
+Web interface for filter selection and data display
+
 Using npm
 
 ```bash
@@ -26,7 +30,7 @@ Using npm
 
 ```
 
-Using pnpm (prefered)
+Using pnpm (preferred)
 
 ```bash
 
@@ -37,3 +41,19 @@ Using pnpm (prefered)
 ```
 
 Alternatively you can use the deployed version [here](https://udacity-one.vercel.app)
+
+# Tech Stack
+
+# Web Interface
+- Nuxt3: Vue Web Framework
+  - Nuxt Content: Store prompts in yaml file
+  - TailwindCSS: Styling
+  - NuxtIcon: Access Iconify Library
+  - EsLint (Antfu): Linting
+- Vercel: Deployment
+  
+# API
+- FastAPI: Python API library
+  - Pydantic: Model Validation
+  - Uvicorn: ASGI Server
+- Pandas: Data Analysis
