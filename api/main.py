@@ -25,12 +25,6 @@ def check_ok():
     }
 
 
-@app.post('/calculate')
-def calculate_stats(query: QueryBody) -> QueryBody:
-
-    return query
-
-
 if __name__ == '__main__':
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run('main:app', port=8000, reload=True)
     pass

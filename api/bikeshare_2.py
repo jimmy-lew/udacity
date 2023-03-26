@@ -3,6 +3,7 @@ import threading
 import pandas as pd
 from typing import Optional
 import numpy as np
+from operator import attrgetter
 from fastapi import APIRouter
 
 from model_types import QueryBody, TimeResponse, TripResponse, UserResponse, QueryResponse
@@ -16,6 +17,7 @@ class Router:
 
         self.router = APIRouter()
         self.df = None
+        self.router.add_api_route('/load', self.load, methods=['POST'])
         self.router.add_api_route('/get_time', self.get_time_info, methods=['POST'])
 
     def load(self, query: QueryBody):
@@ -30,7 +32,7 @@ class Router:
                 (str) day - name of the day of week to filter by, or "all" to apply no day filter
         """
 
-        city, _, month, day = query
+        city, month, day = attrgetter('city', 'month', 'day')(query)
 
         CITY_MAP = {
             'Chicago': 'chicago.csv',
@@ -46,7 +48,9 @@ class Router:
 
         self.df = df
 
-        pass
+        print(self.df)
+
+        return 'SUCCESS!'
 
     def get_time_info(self) -> TimeResponse:
         pass
