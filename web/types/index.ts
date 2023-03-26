@@ -5,9 +5,6 @@ export { }
 declare global {
     type Nullable<T> = T | null
 
-    type RoundTypes = SizeTypes
-    type SizeTypes = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
-
     interface Prompt {
     	prompt: string
     	name: string
@@ -19,15 +16,11 @@ declare global {
     	value: string
     }
 
-    interface QueryData {
+    interface QueryBody {
     	city: string
     	filter: string
     	month: string
     	day: string
-    }
-
-    interface QueryResponse {
-    	[key: string]: string
     }
 
     interface StatusCheck {
@@ -73,11 +66,5 @@ declare global {
     		latest: number
     		mode: number
     	}
-    }
-
- 	interface QueryResponse_ {
-    	time: TimeResponse
-    	trip: TripResponse
-    	user: UserResponse
     }
 }

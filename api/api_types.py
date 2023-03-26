@@ -58,14 +58,13 @@ class UserResponse(BaseModel):
     birth: Optional[UserBirthInfo]
 
 
-class QueryResponse(BaseModel):
-    time: TimeResponse
-    trip: TripResponse
-    user: UserResponse
-
-
 class QueryBody(BaseModel):
     city: str
     filter: str
     month: str
     day: str
+
+
+class StatusResponse(BaseModel):
+    status: str
+    code: int
