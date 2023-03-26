@@ -56,7 +56,7 @@ class Router:
 
     def load_data(self, query: QueryBody) -> StatusResponse:
         """
-        Loads data for the specified city and filters by month and day if applicable.
+        API endpoint to load data for the specified city and filters by month and day if applicable.
 
         Args:
             query (QueryBody): Object containing data loading parameters
@@ -65,7 +65,7 @@ class Router:
             StatusResponse: Response object containing status code and message
         """
 
-        city, month, day = attrgetter('city', 'month', 'day')(query)
+        city, date_filter, month, day = attrgetter('city', 'filter', 'month', 'day')(query)
 
         MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
@@ -84,8 +84,8 @@ class Router:
         df['month'] = df['Start Time'].dt.month
         df['trip'] = df['Start Station'] + ' - ' + df['End Station']
 
-        self.filtered_by_month = month != 0
-        self.filtered_by_day = day != ''
+        self.filtered_by_month = date_filter == 'Month' or date_filter == 'Both'
+        self.filtered_by_day = date_filter == 'Day' or date_filter == 'Both'
 
         self.date_unfiltered_df = df.copy(True)
 

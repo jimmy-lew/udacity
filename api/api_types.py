@@ -2,7 +2,7 @@ from pydantic import BaseModel
 from typing import Optional
 
 
-# TODO: Find a way to make generics work
+# TODO: Convert to generic
 class ValueCountInt(BaseModel):
     value: int
     count: int
