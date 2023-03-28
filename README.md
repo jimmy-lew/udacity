@@ -1,7 +1,18 @@
 # Running Instructions 
 
+## CLI
 
-## API 
+```bash
+  
+  cd cli
+  pip3 install -r requirements_pip.txt
+  python3 main.py
+  
+ ```
+
+
+
+## API [Deprecated]
 
 API for data parsing and analysis
 
@@ -12,10 +23,9 @@ API for data parsing and analysis
   pip3 install -r requirements_pip.txt
   python3 main.py
 
-
 ```
 
-## Web
+## Web [Deprecated]
 
 Web interface for filter selection and data display
 
@@ -26,7 +36,6 @@ Using npm
   cd web
   npm i 
   npm run dev
-
 
 ```
 
@@ -42,7 +51,7 @@ Using pnpm (preferred)
 
 Alternatively you can use the deployed version [here](https://udacity-one.vercel.app)
 
-# App Flow
+# App Flow [Deprecated]
 
 Start off by running the api, the instructions for doing so are as follows [above](#api).
 
@@ -70,7 +79,7 @@ The data will take a few seconds to load and then you will be redirected to a pa
 
 # Tech Stack
 
-# Web Interface
+# Web Interface [Deprecated]
 - Nuxt3: Vue Web Framework
   - Nuxt Content: Store prompts in yaml file
   - TailwindCSS: Styling
@@ -78,12 +87,16 @@ The data will take a few seconds to load and then you will be redirected to a pa
   - EsLint (Antfu): Linting
 - Vercel: Deployment
   
-# API
+# API [Deprecated]
 - FastAPI: Python API library
   - Pydantic: Model Validation
   - Uvicorn: ASGI Server
 - Pandas: Data Analysis
 
+# CLI
+- Numpy & Pandas: Data Analysis
+- Pydantic: Model Validation
+- difflib: text matching
 # CLI
 - Numpy & Pandas: Data Analysis
 - difflib: text matching
