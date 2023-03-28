@@ -53,6 +53,7 @@ class TripResponse(BaseModel):
 
 
 class UserResponse(BaseModel):
+    total: int
     type: UserType
     gender: Optional[UserGender]
     birth: Optional[UserBirthInfo]
